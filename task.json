@@ -1,0 +1,60 @@
+{
+  "atomCode": "notify-webhook",
+  "name": "Notify via webhook",
+  "version": "1.0.0",
+  "description": "Posts a build notification to Slack, DingTalk, Feishu or any JSON webhook; the URL comes from a credential and never reaches the log.",
+  "execution": {
+    "packagePath": "notify-webhook.jar",
+    "language": "java",
+    "target": "$atom_java_path -cp notify-webhook.jar com.jenkinschina.atom.sdk.AtomRunner"
+  },
+  "input": {
+    "kind": {
+      "label": "目标",
+      "type": "selector",
+      "default": "slack",
+      "options": ["slack", "dingtalk", "feishu", "generic"]
+    },
+    "webhookUrl": {
+      "label": "Webhook 地址（建议留空，改用 webhook 凭据）",
+      "type": "vuex-input",
+      "isSensitive": true,
+      "default": ""
+    },
+    "text": {
+      "label": "正文（支持 ${JOB_NAME} ${BUILD_NUMBER} ${BUILD_STATUS} 等变量）",
+      "type": "textarea",
+      "default": "${JOB_NAME} #${BUILD_NUMBER} ${BUILD_STATUS} — ${BUILD_URL}"
+    },
+    "title": {
+      "label": "标题（钉钉/通用用）",
+      "type": "vuex-input",
+      "default": ""
+    },
+    "failOnError": {
+      "label": "发送失败让构建失败",
+      "type": "checkbox",
+      "default": "false"
+    },
+    "timeoutSeconds": {
+      "label": "超时（秒）",
+      "type": "vuex-input-number",
+      "default": "20"
+    },
+    "webhook": {
+      "label": "Webhook（Jenkins 凭据 id，Secret text）",
+      "type": "vuex-input",
+      "isSensitive": true,
+      "default": ""
+    }
+  },
+  "output": {
+    "status": { "type": "string", "description": "HTTP 状态码（网络失败时为 error）" },
+    "response": { "type": "string", "description": "响应体前 512 字节" }
+  },
+  "x-jenkins": {
+    "protocol": "jenkins-1",
+    "secrets": { "webhook": "" },
+    "requires": { "runner": ">=0.4.0" }
+  }
+}

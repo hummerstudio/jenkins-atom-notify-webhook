@@ -1,0 +1,11 @@
+{
+  "name": "Notify via webhook",
+  "summary": "把 slack/钉钉/飞书/通用 webhook 通知变成一个原子，URL 走凭据不进日志。",
+  "author": "hummerstudio",
+  "license": "MIT",
+  "tags": [
+    "official-port",
+    "slack"
+  ],
+  "homepage": "https://github.com/hummerstudio/jenkins-atom-notify-webhook"
+}
