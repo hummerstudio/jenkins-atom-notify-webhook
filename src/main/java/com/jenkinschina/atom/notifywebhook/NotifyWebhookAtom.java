@@ -67,6 +67,9 @@ public class NotifyWebhookAtom implements AtomTask {
                     .build()
                     .send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
         } catch (Exception e) {
+            if (e instanceof InterruptedException) {
+                Thread.currentThread().interrupt();
+            }
             String message = "posting to " + host(url) + " failed: " + e;
             if (failOnError) {
                 return AtomResult.error(ErrorType.THIRD_PART, 40003, message);
