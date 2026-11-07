@@ -14,6 +14,5 @@ only in the envelope.
 ## Build and smoke test
 
 ```bash
-./build.sh
-./tools/smoke.sh       # local HTTP endpoint: slack, dingtalk, ok:false rejection, credential webhook
+mvn verify    # local HTTP endpoint: slack, dingtalk, ok:false rejection, credential webhook
 ```
